@@ -16,7 +16,9 @@ public class UserAccountRepository(IOptions<JwtSection> config, AppDbContext app
     public async Task<GeneralResponse> CreateAsync(Register user)
     {
         if (user is null) return new GeneralResponse(false, "Model is empty");
+
         var checkUser = await FindUserByEmail(user.Email);
+
         if (checkUser != null) return new GeneralResponse(false, "User registered already");
 
         //save user
