@@ -25,8 +25,14 @@ public class UserAccountService(GetHttpClient getHttpClient) : IUserAccountServi
 
     }
 
-    public Task<LoginResponse> SignInAsync(Login user)
+    public async Task<LoginResponse> SignInAsync(Login user)
     {
+        var httpClient = getHttpClient.GetPublicHttpClient();
 
+        var result = await httpClient.PostAsJsonAsync($"{AuthUrl}/login", user);
+
+        if (!result.IsSuccessStatusCode) return new LoginResponse(false, "Error occured");
+
+        return await result.Content.ReadFromJsonAsync<LoginResponse>()!;
     }
 }
