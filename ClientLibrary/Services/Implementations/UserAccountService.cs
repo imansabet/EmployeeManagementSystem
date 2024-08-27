@@ -22,7 +22,7 @@ public class UserAccountService(GetHttpClient getHttpClient) : IUserAccountServi
 
     public Task<LoginResponse> RefreshTokenAsync(RefreshToken token)
     {
-
+        return null;
     }
 
     public async Task<LoginResponse> SignInAsync(Login user)
