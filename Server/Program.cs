@@ -22,6 +22,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.Configure<JwtSection>(builder.Configuration.GetSection("JwtSection"));
 builder.Services.AddScoped<IUserAccount, UserAccountRepository>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+    "AllowBlazorWasm",
+    builder => builder.WithOrigins("https://localhost:7119","http://localhost:5107")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+
+    ); ;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
