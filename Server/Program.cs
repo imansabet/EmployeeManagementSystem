@@ -45,6 +45,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Use CORS before other middlewares
+app.UseCors("AllowBlazorWasm");
+
 app.UseAuthorization();
 
 app.MapControllers();
