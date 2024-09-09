@@ -1,13 +1,26 @@
 ﻿@page "/identity/account/register"
+@layout AuthenticationLayout
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
+        </div> 
+        <div class="col-lg-4 mt-5">
             <EditForm Enhance Model="User" OnValidSubmit="HandleRegistration">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
-                <div class="card">
-                    <div class="card-header">Register Form</div>
+                <div class="card bg-dark d-flex justify-content-center" style="opacity:0.5; margin-top:50% border-radius:10px; color:white; font-weight:bold; ">
+                    <div class="card-header">Register Account</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center">
+                                <img style=" filter: invert(1) brightness(2);" src="../images/uzlogonopreview.png" height="50" width="50" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div class="form-group mt-3">
                             <label class="form-label">Fullname</label>
@@ -29,10 +42,22 @@
                             <button class="btn btn-primary float-end" type="submit">Register</button>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <span class="text-center">
+                             Have Account ?
+                            <a class="btn-link" href="identity/account/login">Sign In</a>
+                        </span>
+                        <ValidationSummary />
+
+                    </div>
                 </div>
 
             </EditForm>
         </div>
+        <div class="col-lg-4">
+            
+        </div>
+      
     </div>
 </div>
 
