@@ -20,9 +20,15 @@ public class UserAccountService(GetHttpClient getHttpClient) : IUserAccountServi
         return await result.Content.ReadFromJsonAsync<GeneralResponse>()!;
     }
 
-    public Task<LoginResponse> RefreshTokenAsync(RefreshToken token)
+    public async Task<LoginResponse> RefreshTokenAsync(RefreshToken token)
     {
-        return null;
+        var httpClient = getHttpClient.GetPublicHttpClient();
+
+        var result = await httpClient.PostAsJsonAsync($"{AuthUrl}/refresh-token", token);
+
+        if (!result.IsSuccessStatusCode) return new LoginResponse(false, "Error occured");
+
+        return await result.Content.ReadFromJsonAsync<LoginResponse>()!;
     }
 
     public async Task<LoginResponse> SignInAsync(Login user)
