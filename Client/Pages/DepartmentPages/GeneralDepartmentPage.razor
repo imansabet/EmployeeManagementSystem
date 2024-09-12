@@ -1,4 +1,5 @@
-﻿@using Client.ApplicationStates
+﻿@using BaseLibrary.Entities
+@using Client.ApplicationStates
 @implements IDisposable
 @inject DepartmentState departmentState
 
@@ -10,7 +11,7 @@
                 <div class="card">
                     <div class="card-header" >
                         <h4 class="float-start" >General Department</h4>
-                        <button class="btn btn-outline-success flaot-end" @onclick="OpenDialog" >
+                        <button class="btn btn-outline-success float-end" @onclick="OpenDialog" >
                             <i class="bi bi-plus-circle-dotted"></i> 
                             Add Department
                         </button>
@@ -58,7 +59,7 @@
 @code {
     GeneralDepartmentDialog? generalDepartmentDialog;
 
-    GeneralDepartmentDTO Department = new();
+    GeneralDepartment Department = new();
     protected override void OnInitialized()
     {
         departmentState.GeneralDepartmentAction += StateHasChanged;
