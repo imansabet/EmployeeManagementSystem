@@ -12,9 +12,7 @@
             <AuthorizeView>
                 <Authorized>
                     <a class="btn btn-none text-danger" @onclick="LogoutClicked">Logout</a>
-
                 </Authorized>
-                
             </AuthorizeView>
             
         </div>
@@ -24,6 +22,7 @@
         </article>
     </main>
 </div>
+<Syncfusion.Blazor.Popups.SfDialogProvider />
 
 @code{
     async Task LogoutClicked()
