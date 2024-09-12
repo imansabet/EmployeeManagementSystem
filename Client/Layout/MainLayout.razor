@@ -1,6 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Authorization
+@inherits LayoutComponentBase
 @inject NavigationManager NavManager
-
+@attribute [Authorize]
 
 <div class="page">
     <div class="sidebar">
@@ -9,11 +10,7 @@
 
     <main>
         <div class="top-row px-4">
-            <AuthorizeView>
-                <Authorized>
-                    <a class="btn btn-none text-danger" @onclick="LogoutClicked">Logout</a>
-                </Authorized>
-            </AuthorizeView>
+            <Client.Pages.OtherPages.ProfileDropDown></Client.Pages.OtherPages.ProfileDropDown>
             
         </div>
 
