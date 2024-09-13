@@ -59,7 +59,7 @@
     GeneralDepartment Department = new();
     protected override void OnInitialized()
     {
-        departmentState.GeneralDepartmentAction += StateHasChanged;
+        allstate.Action += StateHasChanged;
     }
     void OpenDialog()
     {
@@ -69,6 +69,6 @@
 
     public void Dispose()
     {
-        departmentState.GeneralDepartmentAction -= StateHasChanged;
+        allstate.Action -= StateHasChanged;
     }
 }
