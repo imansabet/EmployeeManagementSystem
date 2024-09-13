@@ -28,7 +28,7 @@ builder.Services.AddScoped<GetHttpClient>();
 builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<AuthenticationStateProvider,CustomAuthenticationStateProvider>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
-builder.Services.AddScoped<DepartmentState>();
+builder.Services.AddScoped<AllState>();
 
 // dep
 builder.Services.AddScoped<IGenericServiceInterface<GeneralDepartment>,GenericServiceImplementation<GeneralDepartment>>();
