@@ -3,12 +3,12 @@
     <DialogTemplates>
         <Header>@Title Department</Header>
         <Content>
-            <EditForm Model="generalDepartment" Enhance OnSubmit="Save">
+            <EditForm Model="GeneralDepartment" Enhance OnSubmit="Save">
                 <div class="card border-success">
                     <div class="card-body">
                         <div class="form-group">
                             <lable class="form-label">Name</lable>
-                            <InputText @bind-Value="generalDepartment.Name" class="form-control" />
+                            <InputText @bind-Value="GeneralDepartment.Name" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
 
 @code 
 {
-    [Parameter] public GeneralDepartment generalDepartment { get; set; } = new();
+    [Parameter] public GeneralDepartment GeneralDepartment { get; set; } = new();
     [Parameter] public EventCallback<GeneralDepartment> HandleSaveOperationEvent { get; set; }
 
     private bool IsVisible { get; set; } = false;
@@ -36,10 +36,10 @@
     }
     async void Save()
     {
-        if (string.IsNullOrEmpty(generalDepartment.Name))
+        if (string.IsNullOrEmpty(GeneralDepartment.Name))
             await dialogService.AlertAsync("you need a name .", "Alert!");
         else
-            await HandleSaveOperationEvent.InvokeAsync(generalDepartment);
+            await HandleSaveOperationEvent.InvokeAsync(GeneralDepartment);
 
     }
     public void ChangeTitle(string title)
