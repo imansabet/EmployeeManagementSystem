@@ -1,5 +1,6 @@
 ﻿@using System.Net.Http
 @using System.Net.Http.Json
+@using BaseLibrary.Entities
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
@@ -13,8 +14,27 @@
 @using ClientLibrary.Helpers
 @using Microsoft.AspNetCore.Components.Authorization
 @using ClientLibrary.Services.Contracts
+@using Syncfusion.Blazor.Popups
 
 @inject NavigationManager NavManager
 
 @inject AuthenticationStateProvider AuthStateProvider
 @inject IUserAccountService accountService
+
+@* Authentication *@
+@inject IUserAccountService accountService
+
+@* dialog service *@
+@inject SfDialogService dialogService
+
+@* General Departments /Department / Branch  *@
+@inject IGenericServiceInterface<GeneralDepartment> generalDepartmentService
+@inject IGenericServiceInterface<Department> departmentService
+@inject IGenericServiceInterface<Branch> branchService
+
+
+@inject IGenericServiceInterface<Country> countryService
+@inject IGenericServiceInterface<City> cityService
+@inject IGenericServiceInterface<Town> townService
+
+@inject IGenericServiceInterface<Employee> employeeService
