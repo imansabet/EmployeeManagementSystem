@@ -10,8 +10,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Department> Departments { get; set; }
     public DbSet<Branch> Branches { get; set; }
    //city-town
-    public DbSet<Country> Country { get; set; }
-    public DbSet<City> City { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<City> Cities { get; set; }
     public DbSet<Town> Towns { get; set; }
     //role
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
