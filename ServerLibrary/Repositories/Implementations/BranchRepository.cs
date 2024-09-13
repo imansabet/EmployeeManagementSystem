@@ -45,13 +45,13 @@ namespace ServerLibrary.Repositories.Implementations
             return Success();
         }
 
-        private static GeneralResponse NotFound() => new(false, "Sorry department not found");
+        private static GeneralResponse NotFound() => new(false, "Sorry Branche not found");
         private static GeneralResponse Success() => new(true, "Process Completed");
         private async Task Commit() => await appDbContext.SaveChangesAsync();
 
         private async Task<bool> CheckName(string name)
         {
-            var item = await appDbContext.Departments.FirstOrDefaultAsync(x => x.Name!.ToLower().Equals(name.ToLower()));
+            var item = await appDbContext.Branches.FirstOrDefaultAsync(x => x.Name!.ToLower().Equals(name.ToLower()));
             return item is null;
         }
     }
