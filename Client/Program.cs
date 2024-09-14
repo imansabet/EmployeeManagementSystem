@@ -42,6 +42,7 @@ builder.Services.AddScoped<IGenericServiceInterface<Town>,GenericServiceImplemen
 builder.Services.AddScoped<IGenericServiceInterface<Employee>,GenericServiceImplementation<Employee>>();
 
 
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NCaF1cWWhIfkx3QXxbf1x0ZFRMYFpbR3dPIiBoS35RckVqWHtfc3RTRWNeUUBz");
 
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped<SfDialogService>();

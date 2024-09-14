@@ -71,14 +71,19 @@
     {
         GeneralDepartments = await generalDepartmentService.GetAll(Constants.GeneralDepartmentBaseUrl);
     }
+
     void OpenDialog()
     {
         generalDepartmentDialog?.OpenDialog();
     }
+
+
     public void Dispose()
     {
         allstate.Action -= StateHasChanged;
     }
+
+
     private async Task HandleSaveOperationEvent(GeneralDepartment generalDepartment)
     {
         bool successCheck = false;
@@ -89,16 +94,25 @@
         }
         else
         {
-            var response = await generalDepartmentService.Update(generalDepartment, Constants.GeneralDepartmentBaseUrl);
+            var response = await generalDepartmentService.Insert(generalDepartment, Constants.GeneralDepartmentBaseUrl);
             successCheck = await DisplayMessage(response.Flag, response.Message);
         }
         if (successCheck)
         {
-            generalDepartment = new();
+            GeneralDepartment = new();
             await GetGeneralDepartments();
             generalDepartmentDialog?.ChangeTitle("Add");
         }
     }
+    private void EditClicked(GeneralDepartment dep)
+    {
+        generalDepartmentDialog?.ChangeTitle("Update");
+        GeneralDepartment = dep;
+        OpenDialog();
+    }
+
+
+
     private async Task<bool> DisplayMessage(bool flag, string message)
     {
         if (flag)
