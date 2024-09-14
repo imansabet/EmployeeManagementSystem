@@ -39,7 +39,11 @@
         if (string.IsNullOrEmpty(GeneralDepartment.Name))
             await dialogService.AlertAsync("you need a name .", "Alert!");
         else
+        {
             await HandleSaveOperationEvent.InvokeAsync(GeneralDepartment);
+            IsVisible = false;
+            StateHasChanged();
+        }
 
     }
     public void ChangeTitle(string title)
