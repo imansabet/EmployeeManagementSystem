@@ -1,54 +1,52 @@
 ﻿<SfDialog Width="280px" IsModal="true" ShowCloseIcon="true" @bind-Visible="IsVisible" >
     <DialogEvents OnOpen="OpenDialog" ></DialogEvents>
     <DialogTemplates>
-        <Header>@Title Department</Header>
+        <Header>@Title Branch</Header>
         <Content>
-            <EditForm Model="Department" Enhance OnSubmit="Save">
+            <EditForm Model="Branch" Enhance OnSubmit="Save">
                 <div class="card border-success">
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Id</label>
-                            <input @bind-value="Department.Id" class="form-control"  readonly/>
+                            <input @bind-value="Branch.Id" class="form-control"  readonly/>
                         </div>
                         <div class="form-group">
                             <label class="form-label"> Name</label>
-                            <InputText @bind-Value="Department.Name" class="form-control" />
+                            <InputText @bind-Value="Branch.Name" class="form-control" />
                         </div>
                         <div class="form-group mt-3 mb-3">
-                            <label class="form-label" >Select General Department</label>
-                            @if (Department.GeneralDepartment != null)
+                            <label class="form-label" >Select Department</label>
+                            @if (Branch.Department != null)
                             {
-                                string selected = Department.GeneralDepartment!.Name;
-                                <SfDropDownList TValue="string" TItem="GeneralDepartment" placeholder ="@selected"  DataSource="GeneralDepartments"  >
+                                string selected = Branch.Department!.Name;
+                                <SfDropDownList TValue="string" TItem="Department" placeholder ="@selected"  DataSource="Departments"  >
                                     <DropDownListFieldSettings Value="Id" Text="Name" ></DropDownListFieldSettings>
-                                    <DropDownListEvents TValue="string" TItem="GeneralDepartment" ValueChange="OnValueChange"></DropDownListEvents>
+                                    <DropDownListEvents TValue="string" TItem="Department" ValueChange="OnValueChange"></DropDownListEvents>
                                 </SfDropDownList>
                             }else
                             {
-                                <SfDropDownList TValue="string" TItem="GeneralDepartment" placeholder="Select General Department" DataSource="GeneralDepartments">
+                                <SfDropDownList TValue="string" TItem="Department" placeholder="Select Department" DataSource="Departments">
                                     <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
-                                    <DropDownListEvents TValue="string" TItem="GeneralDepartment" ValueChange="OnValueChange"></DropDownListEvents>
+                                    <DropDownListEvents TValue="string" TItem="Department" ValueChange="OnValueChange"></DropDownListEvents>
                                 </SfDropDownList>
                             }
                         </div>
-                       
+                      
                     </div>
                 </div>
             </EditForm>
         </Content>
     </DialogTemplates>
-
     <DialogButtons>
         <DialogButton Content="SAVE" Type="ButtonType.Submit" IsPrimary="true" OnClick="Save" />
     </DialogButtons>
-
 </SfDialog>
 
 @code
 {
-    [Parameter] public Department Department { get; set; } = new();
-    [Parameter] public List<GeneralDepartment> GeneralDepartments { get; set; } = new();
-    [Parameter] public EventCallback<Department> HandleSaveOperationEvent { get; set; }
+    [Parameter] public Branch Branch { get; set; } = new();
+    [Parameter] public List<Department> Departments { get; set; } = new();
+    [Parameter] public EventCallback<Branch> HandleSaveOperationEvent { get; set; }
 
     private bool IsVisible { get; set; } = false;
     public string Title { get; set; } = "Add";
@@ -60,11 +58,11 @@
     }
     async void Save()
     {
-        if (string.IsNullOrEmpty(Department.Name) || Department.GeneralDepartmentId <= 0 )
+        if (string.IsNullOrEmpty(Branch.Name) || Branch.DepartmentId <= 0 )
             await dialogService.AlertAsync("you need a name .", "Alert!");
         else
         {
-            await HandleSaveOperationEvent.InvokeAsync(Department);
+            await HandleSaveOperationEvent.InvokeAsync(Branch);
             IsVisible = false;
             StateHasChanged();
         }
@@ -75,9 +73,9 @@
         Title = title;
     }
 
-    public async void OnValueChange(ChangeEventArgs<string,GeneralDepartment> args)
+    public async void OnValueChange(ChangeEventArgs<string,Department> args)
     {
-        Department.GeneralDepartmentId = int.Parse(args.Value);
+        Branch.DepartmentId = int.Parse(args.Value);
     }
 
 

@@ -22,7 +22,11 @@ namespace ServerLibrary.Repositories.Implementations
             return Success();
         }
 
-        public async Task<List<Branch>> GetAll() => await appDbContext.Branches.ToListAsync();
+        public async Task<List<Branch>> GetAll() => await appDbContext
+            .Branches
+            .AsNoTracking()
+            .Include(d=>d.Department)
+            .ToListAsync();
 
         public async Task<Branch> GetById(int id) => await appDbContext.Branches.FindAsync(id);
 
@@ -38,9 +42,10 @@ namespace ServerLibrary.Repositories.Implementations
 
         public async Task<GeneralResponse> Update(Branch item)
         {
-            var dep = await appDbContext.Branches.FindAsync(item.Id);
-            if (dep is null) return NotFound();
-            dep.Name = item.Name;
+            var branch = await appDbContext.Branches.FindAsync(item.Id);
+            if (branch is null) return NotFound();
+            branch.Name = item.Name;
+            branch.DepartmentId = item.DepartmentId;
             await Commit();
             return Success();
         }
