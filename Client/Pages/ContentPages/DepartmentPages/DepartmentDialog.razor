@@ -8,11 +8,11 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Id</label>
-                            <input @bind-value="Department.Id" class="form-control"  disabled/>
+                            <input @bind-value="Department.Id" class="form-control"  readonly/>
                         </div>
                         <div class="form-group">
                             <label class="form-label"> Name</label>
-                            <InputText @bind-value="Department.Name" class="form-control" />
+                            <InputText @bind-Value="Department.Name" class="form-control" />
                         </div>
                         <div class="form-group mt-3 mb-3">
                             <label class="form-label" >Select General Department</label>
@@ -31,6 +31,9 @@
                                 </SfDropDownList>
                             }
                         </div>
+                        <DialogButtons>
+                            <DialogButton Content="SAVE" Type="ButtonType.Submit" IsPrimary="true" OnClick="Save" />
+                        </DialogButtons>
                     </div>
                 </div>
             </EditForm>
