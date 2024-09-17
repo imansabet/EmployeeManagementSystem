@@ -1,4 +1,5 @@
 ﻿@implements IDisposable
+
 @if (allstate.ShowBranch)
 
 {
@@ -34,7 +35,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (Branches  is not null)
+                                        @if (Branches != null && Branches.Any())
                                         {
                                             int count = 1;
                                             foreach (var item in Branches)
@@ -134,12 +135,12 @@
         bool successCheck = false;
         if (branch.Id > 0)
         {
-            var result = await branchService.Update(branch, Constants.DepartmentBaseUrl);
+            var result = await branchService.Update(branch, Constants.BranchBaseUrl);
             successCheck = await DisplayMessage(result.Flag, result.Message);
         }
         else
         {
-            var response = await branchService.Insert(branch, Constants.DepartmentBaseUrl);
+            var response = await branchService.Insert(branch, Constants.BranchBaseUrl);
             successCheck = await DisplayMessage(response.Flag, response.Message);
         }
         if (successCheck)
@@ -162,7 +163,7 @@
     {
         bool confirm = await dialogService.ConfirmAsync($"Delete `` {branch.Name} `` ?", "Yes Delete it!");
         if (!confirm) return;
-        var response = await departmentService.DeleteById(branch.Id, Constants.DepartmentBaseUrl);
+        var response = await branchService.DeleteById(branch.Id, Constants.BranchBaseUrl);
         var result = await DisplayMessage(response.Flag, response.Message);
         if (result)
             await GetBranches();

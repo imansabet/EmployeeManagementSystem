@@ -58,24 +58,28 @@
     }
     async void Save()
     {
-        if (string.IsNullOrEmpty(Branch.Name) || Branch.DepartmentId <= 0 )
-            await dialogService.AlertAsync("you need a name .", "Alert!");
+        if (string.IsNullOrEmpty(Branch.Name) || Branch.DepartmentId <= 0)
+        {
+            await dialogService.AlertAsync("You need to provide a name and select a department.", "Alert!");
+        }
         else
         {
             await HandleSaveOperationEvent.InvokeAsync(Branch);
             IsVisible = false;
             StateHasChanged();
         }
-
     }
     public void ChangeTitle(string title)
     {
         Title = title;
     }
 
-    public async void OnValueChange(ChangeEventArgs<string,Department> args)
+    public async void OnValueChange(ChangeEventArgs<string, Department> args)
     {
-        Branch.DepartmentId = int.Parse(args.Value);
+        if (args.ItemData != null)
+        {
+            Branch.DepartmentId = args.ItemData.Id;
+        }
     }
 
 

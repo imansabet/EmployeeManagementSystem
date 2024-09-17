@@ -8,5 +8,5 @@ public class Branch : BaseEntity
     public int DepartmentId { get; set; }
 
     [JsonIgnore]
-    public List<Employee> Employees { get; set; }
+    public List<Employee>? Employees { get; set; }
 } 
