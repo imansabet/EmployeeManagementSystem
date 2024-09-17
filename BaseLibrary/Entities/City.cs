@@ -7,5 +7,5 @@ public class City : BaseEntity
     public int CountryId { get; set; } = 0;
     [JsonIgnore]
 
-    public List<Town> Towns { get; set; }
+    public List<Town>? Towns { get; set; }
 }
