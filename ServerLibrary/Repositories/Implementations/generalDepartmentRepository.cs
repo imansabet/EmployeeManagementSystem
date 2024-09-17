@@ -27,7 +27,7 @@ public class GeneralDepartmentRepository(AppDbContext appDbContext) : IGenericRe
     {
         var checkIfNull = await CheckName(item.Name);
         if (!checkIfNull)
-            return new GeneralResponse(false, "General Department already added");
+            return new GeneralResponse(false, $"{item.Name} already added");
         appDbContext.GeneralDepartments.Add(item);
         await Commit();
         return Success();

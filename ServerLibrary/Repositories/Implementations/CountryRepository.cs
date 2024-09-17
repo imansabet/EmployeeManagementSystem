@@ -25,7 +25,7 @@ public class CountryRepository(AppDbContext appDbContext) : IGenericRepositoryIn
 
     public async Task<GeneralResponse> Insert(Country item)
     {
-        if (!await CheckName(item.Name!)) return new GeneralResponse(false, "Country already added");
+        if (!await CheckName(item.Name!)) return new GeneralResponse(false, $"{item.Name} already added");
         appDbContext.Countries.Add(item);
         await Commit();
         return Success();

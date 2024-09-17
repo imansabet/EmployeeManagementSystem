@@ -29,7 +29,7 @@ public class CityRepository(AppDbContext appDbContext) : IGenericRepositoryInter
 
     public async Task<GeneralResponse> Insert(City item)
     {
-        if (!await CheckName(item.Name!)) return new GeneralResponse(false, "City already added");
+        if (!await CheckName(item.Name!)) return new GeneralResponse(false, $"{item.Name} already added");
         appDbContext.Cities.Add(item);
         await Commit();
         return Success();

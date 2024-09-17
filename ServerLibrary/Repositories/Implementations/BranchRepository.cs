@@ -34,7 +34,7 @@ namespace ServerLibrary.Repositories.Implementations
 
         public async Task<GeneralResponse> Insert(Branch item)
         {
-            if (!await CheckName(item.Name!)) return new GeneralResponse(false, "Branch already added");
+            if (!await CheckName(item.Name!)) return new GeneralResponse(false, $"{item.Name} already added");
             appDbContext.Branches.Add(item);
             await Commit();
             return Success();
