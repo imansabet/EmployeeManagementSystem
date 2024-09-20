@@ -169,7 +169,7 @@ public class UserAccountRepository(IOptions<JwtSection> config, AppDbContext app
         foreach (var user in allUsers) 
         {
             var userRole = allUserRoles.FirstOrDefault(u => u.UserId == user.Id);
-            var roleName = allRoles.FirstOrDefault(u => u.Id == userRole.RoleId);
+            var roleName = allRoles.FirstOrDefault(r => r.Id == userRole.RoleId);
             users.Add(new ManageUser() { UserId = user.Id, Name = user.FullName, Email = user.Email!, Role = roleName.Name });
         }
         return users;
@@ -180,8 +180,14 @@ public class UserAccountRepository(IOptions<JwtSection> config, AppDbContext app
     public async Task<GeneralResponse> UpdateUser(ManageUser user)
     {
         var getRole = (await SystemRoles()).FirstOrDefault(r => r.Name!.Equals(user.Role));
+        if (getRole == null)
+            return new GeneralResponse(false, "Role not found");
+
         var userRole = await appDbContext.UserRoles.FirstOrDefaultAsync(u => u.UserId == user.UserId);
-        userRole!.RoleId = getRole!.Id;
+        if (userRole == null)
+            return new GeneralResponse(false, "User role not found");
+
+        userRole.RoleId = getRole.Id;
         await appDbContext.SaveChangesAsync();
         return new GeneralResponse(true, "User role updated successfully");
     }

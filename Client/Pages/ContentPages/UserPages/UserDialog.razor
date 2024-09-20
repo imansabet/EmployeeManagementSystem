@@ -18,19 +18,22 @@
                             <label class="form-label">Select Role</label>
                             @if (string.IsNullOrEmpty(ManageUser.Role))
                             {
-                                string selected = ManageUser!.Role!;
-                                <SfDropDownList TValue="string" TItem="SystemRole" placeholder="@selected" DataSource="SystemRoles">
+                                string selected = ManageUser.Role;
+                                <SfDropDownList TValue="string" TItem="SystemRole" Placeholder="@selected" DataSource="SystemRoles">
                                     <DropDownListFieldSettings Value="Name" Text="Name"></DropDownListFieldSettings>
                                     <DropDownListEvents TValue="string" TItem="SystemRole" ValueChange="OnValueChange"></DropDownListEvents>
                                 </SfDropDownList>
                             }
                             else
                             {
-                                <SfDropDownList TValue="string" TItem="SystemRole" placeholder="Select Department" DataSource="SystemRoles">
+                                <SfDropDownList TValue="string" TItem="SystemRole" Placeholder="Select Role" DataSource="SystemRoles">
                                     <DropDownListFieldSettings Value="Name" Text="Name"></DropDownListFieldSettings>
                                     <DropDownListEvents TValue="string" TItem="SystemRole" ValueChange="OnValueChange"></DropDownListEvents>
                                 </SfDropDownList>
+
                             }
+
+                            
                         </div>
                     </div>
                 </div>
@@ -50,12 +53,21 @@
 
     private bool IsVisible { get; set; } = false;
 
+
+    protected override void OnParametersSet()
+    {
+        foreach (var role in SystemRoles)
+        {
+            Console.WriteLine($"Role: {role.Name}");
+        }
+    }
+
     public void OpenDialog()
     {
         IsVisible = true;
         StateHasChanged();
     }
-    async void Save()
+    private async void Save()
     {
         if (string.IsNullOrEmpty(ManageUser.Name) || string.IsNullOrEmpty(ManageUser.Role))
         {
@@ -69,13 +81,11 @@
         }
     }
    
-    public async void OnValueChange(ChangeEventArgs<string, SystemRole> args)
+    public void OnValueChange(ChangeEventArgs<string, SystemRole> args)
     {
-        if (args.ItemData != null)
-        {
-            ManageUser.Role = args.Value.ToString();
-        }
+        
+            ManageUser.Role = args.Value.ToString(); 
+        
     }
-
 
 }

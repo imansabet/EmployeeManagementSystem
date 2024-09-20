@@ -44,7 +44,7 @@ namespace Server.Controllers
             return Ok(users);
         }
 
-        [HttpPut("update-user")]
+        [HttpPost("update-user")]
         public async Task<IActionResult> UpdateUser(ManageUser manageUser) 
         {
             var result = await accountInterface.UpdateUser(manageUser);
@@ -54,9 +54,9 @@ namespace Server.Controllers
         [HttpGet("roles")]
         public async Task<IActionResult> GetRoles() 
         {
-            var users = await accountInterface.GetUsers();
-            if (users == null) return NotFound();
-            return Ok(users);
+            var roles = await accountInterface.GetRoles(); 
+            if (roles == null || !roles.Any()) return NotFound();
+            return Ok(roles);
         }
 
         [HttpDelete("delete-user/{id}")]
