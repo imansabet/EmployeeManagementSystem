@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Syncfusion.Blazor.Buttons" Version="26.2.13" />
     <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="26.2.13" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="26.2.13" />
     <PackageReference Include="Syncfusion.Blazor.Popups" Version="26.2.13" />
     <PackageReference Include="Syncfusion.Blazor.SplitButtons" Version="26.2.13" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="26.2.13" />

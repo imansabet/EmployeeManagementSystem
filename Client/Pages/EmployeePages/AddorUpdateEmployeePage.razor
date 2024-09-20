@@ -1,23 +1,26 @@
 ﻿@implements IDisposable
 
-
-@if(allstate.ShowEmployee)
+@if (allstate.ShowEmployee)
 {
     if (ShowAddOrUpdateEmployee)
     {
         <div class="container">
             <div class="row mt-5">
-                <div class="col-lg-1 text-center"><i class="bi bi-x-lg fs-3 text-danger" style="cursor:pointer" @onclick="Closeform"></i></div>
-                <div class="col-lg-6 text-center"><h2>Add Employee</h2></div>
+                <div class="col-lg-1 text-center">
+                    <i class="bi bi-x-lg fs-3 text-danger" style="cursor:pointer" @onclick="Closeform"></i>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <h2>Add Employee</h2>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 mb-5 mt-2 d-flex justify-content-center">
                     <div class="hstack">
                         @if (FirstLayer)
                         {
-                            <div class="@FloatingNumber1 text-center" >1</div>
-                            <div class="@Floatingdiv1 format-border" ></div>
-                            <div class="@FloatingNumber2 text-center" >2</div>
+                            <div class="@FloatingNumber1 text-center">1</div>
+                            <div class="@Floatingdiv1 format-border"></div>
+                            <div class="@FloatingNumber2 text-center">2</div>
                             <div class="@Floatingdiv2 format-border"></div>
                         }
                         @if (SecondLayer)
@@ -29,60 +32,59 @@
                         }
                     </div>
                 </div>
-                @* //Employee form  first layer - second layer *@
+
                 <div class="col-lg-12">
                     <div class="container-fluid">
                         @if (FirstLayer)
                         {
-                            <EditForm Enhance Model="EmployeeGroup1" OnValidSubmit="Form1">
-                                <DataAnnotationsValidator/>
+                            <EditForm Model="EmployeeGroup1" OnValidSubmit="Form1">
+                                <DataAnnotationsValidator />
                                 <div class="row">
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-4">
-                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Personal Information </div>
+                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Personal Information</div>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label class="from-label">Full Name</label>
+                                                <label class="form-label">Full Name</label>
                                                 <InputText @bind-Value="EmployeeGroup1.Name" class="form-control" />
                                                 <ValidationMessage For="()=>EmployeeGroup1.Name" class="text-danger" />
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label class="from-label">Telephone</label>
+                                                <label class="form-label">Telephone</label>
                                                 <InputText @bind-Value="EmployeeGroup1.TelephoneNumber" class="form-control" />
                                                 <ValidationMessage For="()=>EmployeeGroup1.TelephoneNumber" class="text-danger" />
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label class="from-label">Address</label>
+                                                <label class="form-label">Address</label>
                                                 <InputText @bind-Value="EmployeeGroup1.Address" class="form-control" />
                                                 <ValidationMessage For="()=>EmployeeGroup1.Address" class="text-danger" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 mt-2">
-                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Other Information </div>
+                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Other Information</div>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label class="from-label">Civil Id</label>
+                                                <label class="form-label">Civil Id</label>
                                                 <InputText @bind-Value="EmployeeGroup1.CivilId" class="form-control" />
                                                 <ValidationMessage For="()=>EmployeeGroup1.CivilId" class="text-danger" />
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label class="from-label">Fil Number</label>
+                                                <label class="form-label">File Number</label>
                                                 <InputText @bind-Value="EmployeeGroup1.FileNumber" class="form-control" />
                                                 <ValidationMessage For="()=>EmployeeGroup1.FileNumber" class="text-danger" />
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label class="from-label">Photo</label>
+                                                <label class="form-label">Photo</label>
                                                 <InputText @bind-Value="EmployeeGroup1.Photo" class="form-control" />
                                                 <ValidationMessage For="()=>EmployeeGroup1.Photo" class="text-danger" />
                                             </div>
                                             <div class="form-group mt-5">
                                                 <button class="btn btn-primary float-end mt-4 mb-5" type="submit">
-                                                    <i class="bi bi-arrow-right"> </i>
+                                                    <i class="bi bi-arrow-right"></i>
                                                     Next
                                                 </button>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="col-lg-2"></div>
@@ -91,80 +93,75 @@
                         }
                         @if (SecondLayer)
                         {
-                            <EditForm Enhance Model="EmployeeGroup2" OnValidSubmit="Form2">
+                            <EditForm Model="EmployeeGroup2" OnValidSubmit="Form2">
                                 <DataAnnotationsValidator />
                                 <div class="row">
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-4">
-                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Job Information </div>
+                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Job Information</div>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label class="from-label">Job Name</label>
+                                                <label class="form-label">Job Name</label>
                                                 <InputText @bind-Value="EmployeeGroup2.JobName" class="form-control" />
                                                 <ValidationMessage For="()=>EmployeeGroup2.JobName" class="text-danger" />
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label class="from-label"></label>
-                                                <label class="from-label">@(GeneralDepartmentName == "" ? "Select General Department" : $"Selected General Department: {GeneralDepartmentName}")</label>
+                                                <label class="form-label">@(!string.IsNullOrEmpty(GeneralDepartmentName) ? $"Selected General Department: {GeneralDepartmentName}" : "Select General Department")</label>
                                                 <SfDropDownList TValue="string" TItem="GeneralDepartment" Placeholder="Select General Department" DataSource="GeneralDepartments">
                                                     <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
                                                     <DropDownListEvents TValue="string" TItem="GeneralDepartment" ValueChange="OnGeneralDepartmentValueChange"></DropDownListEvents>
                                                 </SfDropDownList>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label class="from-label">@(DepartmentName == "" ? "Select  Department" : $"Selected Department: {DepartmentName}")</label>
-                                                <SfDropDownList TValue="string" TItem="Department" Placeholder="Select  Department" DataSource="Departments">
+                                                <label class="form-label">@(!string.IsNullOrEmpty(DepartmentName) ? $"Selected Department: {DepartmentName}" : "Select Department")</label>
+                                                <SfDropDownList TValue="string" TItem="Department" Placeholder="Select Department" DataSource="Departments">
                                                     <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
                                                     <DropDownListEvents TValue="string" TItem="Department" ValueChange="OnDepartmentValueChange"></DropDownListEvents>
                                                 </SfDropDownList>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label class="from-label">@(Employee.Branch == null ? "Select  Branch" : $"Selected Branch: {Employee.Branch.Name}")</label>
-                                                <SfDropDownList TValue="string" TItem="Department" Placeholder="Select  Branch" DataSource="Branches">
+                                                <label class="form-label">@(!string.IsNullOrEmpty(Employee.Branch?.Name) ? $"Selected Branch: {Employee.Branch.Name}" : "Select Branch")</label>
+                                                <SfDropDownList TValue="string" TItem="Branch" Placeholder="Select Branch" DataSource="Branches">
                                                     <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
                                                     <DropDownListEvents TValue="string" TItem="Branch" ValueChange="OnBranchValueChange"></DropDownListEvents>
                                                 </SfDropDownList>
                                                 <ValidationMessage For="()=>EmployeeGroup2.BranchId" class="text-danger" />
                                             </div>
                                             <div class="form-group mt-4 mb-5">
-                                                <button class="btn btn-primary float-start" type="button" onclick="PrevClicked"> 
+                                                <button class="btn btn-primary float-start" type="button" @onclick="PrevClicked">
                                                     <i class="bi bi-arrow-left"></i>
                                                     Prev
                                                 </button>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="col-lg-4">
-                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Location Information </div>
+                                        <div class="card-title mb-5 fw-bold" style="font-family:Tahoma">Location Information</div>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label class="from-label">@(CountryName == "" ? "Select Country" : $"Select Country:{CountryName}")    </label>
-                                                <SfDropDownList TValue="string" TItem="Country" Placeholder="Select  Country" DataSource="Countries">
+                                                <label class="form-label">@(!string.IsNullOrEmpty(CountryName) ? $"Select Country: {CountryName}" : "Select Country")</label>
+                                                <SfDropDownList TValue="string" TItem="Country" Placeholder="Select Country" DataSource="Countries">
                                                     <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
                                                     <DropDownListEvents TValue="string" TItem="Country" ValueChange="OnCountryValueChange"></DropDownListEvents>
                                                 </SfDropDownList>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label class="from-label">@(CityName == "" ? "Select City" : $"Select City:{CityName}")    </label>
-                                                <SfDropDownList TValue="string" TItem="City" Placeholder="Select  City" DataSource="Cities">
+                                                <label class="form-label">@(!string.IsNullOrEmpty(CityName) ? $"Select City: {CityName}" : "Select City")</label>
+                                                <SfDropDownList TValue="string" TItem="City" Placeholder="Select City" DataSource="Cities">
                                                     <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
                                                     <DropDownListEvents TValue="string" TItem="City" ValueChange="OnCityValueChange"></DropDownListEvents>
                                                 </SfDropDownList>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label class="from-label">@(Employee.Town == null ? "Select Town" : $"Select Town:{Employee.Town.Name}")    </label>
-                                                <SfDropDownList TValue="string" TItem="Town" Placeholder="Select  Town" DataSource="Towns">
+                                                <label class="form-label">@(!string.IsNullOrEmpty(Employee.Town?.Name) ? $"Select Town: {Employee.Town.Name}" : "Select Town")</label>
+                                                <SfDropDownList TValue="string" TItem="Town" Placeholder="Select Town" DataSource="Towns">
                                                     <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
                                                     <DropDownListEvents TValue="string" TItem="Town" ValueChange="OnTownValueChange"></DropDownListEvents>
                                                 </SfDropDownList>
                                                 <ValidationMessage For="()=>EmployeeGroup2.TownId" class="text-danger" />
                                             </div>
-                                            <div class="form-group mt-3">
-                                                <label class="form-label" >Other</label>
-                                                <textarea @bind="EmployeeGroup2.Other" placeholder="Optional" class="form-control" />
-                                            </div>
                                             <div class="form-group mt-4 mb-5">
-                                                <button class="btn btn-success float-end" type="submit"">
+                                                <button class="btn btn-primary float-end" type="submit">
                                                     <i class="bi bi-save"></i>
                                                     Save
                                                 </button>
@@ -178,9 +175,8 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     }
-
 }
 
 <style>
@@ -219,7 +215,24 @@
 
 @code
 {
+    [Parameter] public Employee Employee { get; set; } = new();
+
     [Parameter] public bool ShowAddOrUpdateEmployee { get; set; }
+
+    [Parameter] public EmployeeGrouping1 EmployeeGroup1 { get; set; } = new();
+    [Parameter] public EmployeeGrouping2 EmployeeGroup2 { get; set; } = new();
+
+    [Parameter] public List<Country> Countries { get; set; } = new();
+    [Parameter] public List<City> Cities { get; set; } = new();
+    [Parameter] public List<Town> Towns { get; set; } = new();
+
+    [Parameter] public List<GeneralDepartment> GeneralDepartments { get; set; } = new();
+    [Parameter] public List<Department> Departments { get; set; } = new();
+    [Parameter] public List<Branch> Branches { get; set; } = new();
+
+
+    [Parameter] public EventCallback NotifyParentFormCloseClicked { get; set; }
+
     string FloatingNumber1 = "floatingNumber";
     string Floatingdiv1 = "floatingDiv";
 
@@ -239,6 +252,66 @@
         FirstLayer = true;
         SecondLayer = false;
     }
+
+    protected async override Task OnInitializedAsync()
+    {
+        allstate.Action += StateHasChanged;
+    }
+
+    async Task CloseForm()
+    {
+        ShowAddOrUpdateEmployee = false;
+        await NotifyParentFormCloseClicked.InvokeAsync();
+    }
+
+    //country city town
+    [Parameter] public EventCallback<int> HandleCountrySelectedEvent { get; set; }
+    public void OnCountryValueChange(ChangeEventArgs<string,Country> args)
+    {
+        HandleCountrySelectedEvent.InvokeAsync(int.Parse(args.Value));    
+    }
+
+    [Parameter] public EventCallback<int> HandleCitySelectedEvent { get; set; }
+    public void OnCityValueChange(ChangeEventArgs<string, City> args)
+    {
+        HandleCitySelectedEvent.InvokeAsync(int.Parse(args.Value));
+    }
+
+    public void OnTownValueChange(ChangeEventArgs<string, Town> args)
+    {
+        EmployeeGroup2.TownId = int.Parse(args.Value);
+    }
+
+    //G Department Department branch
+    [Parameter] public EventCallback<int> HandleGeneralDepartmentSelectedEvent { get; set; }
+    public void OnGeneralDepartmentValueChange(ChangeEventArgs<string, GeneralDepartment> args)
+    {
+        HandleGeneralDepartmentSelectedEvent.InvokeAsync(int.Parse(args.Value));
+    }
+
+    [Parameter] public EventCallback<int> HandleDepartmentSelectedEvent { get; set; }
+    public void OnDepartmentValueChange(ChangeEventArgs<string, Department> args)
+    {
+        HandleDepartmentSelectedEvent.InvokeAsync(int.Parse(args.Value));
+    }
+
+    public void OnBranchValueChange(ChangeEventArgs<string, Branch> args)
+    {
+        EmployeeGroup2.BranchId = int.Parse(args.Value);
+    }
+
+    //Forms Handling
+    void Form1()
+    {
+        
+    }
+    void Form2()
+    {
+
+    }
+
+
+    public void Dispose() => allstate.Action -= StateHasChanged;
 
 
 }
