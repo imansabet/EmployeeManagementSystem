@@ -30,6 +30,15 @@
                                     <GridColumn Field=@nameof(Employee.JobName) HeaderText ="Job Name" ></GridColumn>
                                     <GridColumn Field=@nameof(Employee.Branch.Name) HeaderText ="Branch" ></GridColumn>
                                     <GridColumn Field=@nameof(Employee.Town.Name) HeaderText ="Town" ></GridColumn>
+                                    <GridColumn  HeaderText="Menu" HeaderTextAlign="TextAlign.Left">
+                                        <Template>
+                                            @{
+                                                var employee = (context as Employee);
+                                                <i class="bi bi-menu-down text-primary" id="cursorStyle" @onclick="() => ShowMenuPopUp(employee!) "></i>
+                                            }
+                                        </Template>
+                                    </GridColumn>
+
                                 </GridColumns>
                             </SfGrid>
                         </div>
@@ -56,7 +65,17 @@
             HandleCitySelectedEvent="HandleCitySelectedEvent"
             HandleGeneralDepartmentSelectedEvent="HandleGeneralDepartmentSelectedEvent" 
             HandleDepartmentSelectedEvent="HandleDepartmentSelectedEvent"
-            HandleSaveEmployeeClickedEvent="HandleSaveEmployeeClickedEvent" />
+            HandleSaveEmployeeClickedEvent="HandleSaveEmployeeClickedEvent" >
+</AddorUpdateEmployeePage>
+<ContextMenu 
+    @ref ="contextMenu"
+            HandleDeleteClicked="DeleteClicked"
+            HandleEditClicked="EditClicked"
+            HandleViewClicked="ViewClicked"
+            HandleAddHealthClicked="AddHealtClicked"
+            HandleAddOvertimeClicked="AddOvertimeClicked"
+            HandleAddSanctionClicked="AddSanctionClicked"
+            HandleAddVacationClicked="AddVacationClicked"/>
 
 
 @code {
@@ -150,7 +169,66 @@
     {
         ShowMainPage = false;
         ShowAddOrUpdatePage = true;
-    }   
+    }
+
+
+    //context menu 
+    ContextMenu? contextMenu;
+    public Employee SelectedEmployee { get; set; } = new();
+    void ShowMenuPopUp(Employee employee)
+    {
+        SelectedEmployee = employee;
+        contextMenu!.OpenContextMenu();
+    }
+    //Edit Clicked 
+    void EditClicked()
+    {
+        //employeegroup1
+        addOrUpdateEmplotyee!.Employee.Id = SelectedEmployee.Id;
+        addOrUpdateEmplotyee!.EmployeeGroup1.Name = SelectedEmployee.Name;
+        addOrUpdateEmplotyee!.EmployeeGroup1.TelephoneNumber = SelectedEmployee.TelephoneNumber;
+        addOrUpdateEmplotyee!.EmployeeGroup1.FileNumber = SelectedEmployee.FileNumber;
+        addOrUpdateEmplotyee!.EmployeeGroup1.Address = SelectedEmployee.Address;
+        addOrUpdateEmplotyee!.EmployeeGroup1.Photo = SelectedEmployee.Photo;
+        addOrUpdateEmplotyee!.EmployeeGroup1.CivilId = SelectedEmployee.CivilId;
+        //employeegroup2
+        addOrUpdateEmplotyee!.EmployeeGroup2.JobName = SelectedEmployee.JobName;
+        addOrUpdateEmplotyee!.EmployeeGroup2.Other = SelectedEmployee.Other;
+        //general department - department - branch
+        addOrUpdateEmplotyee!.GeneralDepartment = SelectedEmployee.Branch.Department.GeneralDepartment.Name;
+        addOrUpdateEmplotyee!.Department = SelectedEmployee.Branch.Department.Name;
+        addOrUpdateEmplotyee!.GeneralDepartment = SelectedEmployee.Branch.Name;
+        //country - city - town 
+        addOrUpdateEmplotyee!.Country = SelectedEmployee.Town.City.Country.Name;
+        addOrUpdateEmplotyee!.City = SelectedEmployee.Town.City.Name;
+        addOrUpdateEmplotyee!.Town = SelectedEmployee.Town.Name;
+        //title
+        addOrUpdateEmplotyee.Title = "Update";
+
+        SelectedEmployee = new();
+        contextMenu.CloseContextMenu();
+        ShowAddOrUpdatePage = true;
+        ShowMainPage = false;
+
+    }
+
+    private async Task DeleteClicked()
+    {
+        contextMenu.CloseContextMenu();
+        bool confirm = await dialogService.ConfirmAsync($"Are you wanna delete {SelectedEmployee.Name}","Confirm");
+        if (!confirm) return;
+
+        var response = employeeService.DeleteById(SelectedEmployee.Id, Constants.EmployeeBaseUrl);
+        var result = await DisplayMessage(response.Flag, response.Message);
+        if (result)
+        {
+            SelectedEmployee = new();
+            await LoadEmployess();
+        }
+
+
+    }
+
 
 
     private async Task<bool> DisplayMessage(bool flag, string message)
