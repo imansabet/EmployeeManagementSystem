@@ -252,8 +252,103 @@
         FirstLayer = true;
         SecondLayer = false;
     }
+    //forms validation
+    private bool ValidateEmployeeGroup1()
+    {
+        if (string.IsNullOrEmpty(EmployeeGroup1.Name) 
+        || string.IsNullOrEmpty(EmployeeGroup1.TelephoneNumber) 
+        || string.IsNullOrEmpty(EmployeeGroup1.FileNumber) 
+        || string.IsNullOrEmpty(EmployeeGroup1.Address) 
+        || string.IsNullOrEmpty(EmployeeGroup1.Photo) 
+        || string.IsNullOrEmpty(EmployeeGroup1.CivilId))
+            return false;
+        else
+            return true;
+    }
+    private bool ValidateEmployeeGroup2()
+    {
+        if (string.IsNullOrEmpty(EmployeeGroup2.JobName)
+        || EmployeeGroup2.TownId == 0 
+        || EmployeeGroup2.BranchId == 0)
+            return false;
+        else
+            return true;
+    }
+    //save form
+    [Parameter] public EventCallback<Employee> HandleSaveEmployeeClickedEvent { get; set; }
+    //Forms Handling
+    private void Form1()
+    {
+        var isValid = ValidateEmployeeGroup1();
+        if (isValid)
+        {
+            Employee.Name = EmployeeGroup1.Name;
+            Employee.TelephoneNumber = EmployeeGroup1.TelephoneNumber;
+            Employee.Address = EmployeeGroup1.Address;
+            Employee.CivilId = EmployeeGroup1.CivilId;
+            Employee.FileNumber = EmployeeGroup1.FileNumber;
+            Employee.Photo = EmployeeGroup1.Photo;
+            ShowLayer2();
+        }
+    }
+    private async Task Form2()
+    {
+        var isValid = ValidateEmployeeGroup2();
+        if (isValid)
+        {
+            Employee.JobName = EmployeeGroup2.JobName;
+            Employee.Other = EmployeeGroup2.Other;
+            Employee.BranchId = EmployeeGroup2.BranchId;
+            Employee.TownId = EmployeeGroup2.TownId;
 
-    protected async override Task OnInitializedAsync()
+            await HandleSaveEmployeeClickedEvent.InvokeAsync(Employee);
+            EmployeeGroup1 = new();
+            EmployeeGroup2 = new();
+            Employee = new();
+        }
+
+    }
+    
+
+    //country city town
+    [Parameter] public EventCallback<int> HandleCountrySelectedEvent { get; set; }
+    public void OnCountryValueChange(ChangeEventArgs<string, Country> args) 
+    => HandleCountrySelectedEvent.InvokeAsync(int.Parse(args.Value));
+
+ 
+
+    [Parameter] public EventCallback<int> HandleCitySelectedEvent { get; set; }
+    public void OnCityValueChange(ChangeEventArgs<string, City> args)
+    => HandleCitySelectedEvent.InvokeAsync(int.Parse(args.Value));
+   
+
+    public void OnTownValueChange(ChangeEventArgs<string, Town> args) => EmployeeGroup2.TownId = int.Parse(args.Value);
+
+   
+    //G Department Department branch
+    [Parameter] public EventCallback<int> HandleGeneralDepartmentSelectedEvent { get; set; }
+    public void OnGeneralDepartmentValueChange(ChangeEventArgs<string, GeneralDepartment> args) 
+    => HandleGeneralDepartmentSelectedEvent.InvokeAsync(int.Parse(args.Value));
+
+    
+    
+
+    [Parameter] public EventCallback<int> HandleDepartmentSelectedEvent { get; set; }
+    public void OnDepartmentValueChange(ChangeEventArgs<string, Department> args) 
+    => HandleDepartmentSelectedEvent.InvokeAsync(int.Parse(args.Value));
+      
+    public void OnBranchValueChange(ChangeEventArgs<string, Branch> args) 
+    => EmployeeGroup2.BranchId = int.Parse(args.Value);
+
+    
+    
+
+    
+
+
+    public void Dispose() => allstate.Action -= StateHasChanged;
+
+    protected override void OnInitialized()
     {
         allstate.Action += StateHasChanged;
     }
@@ -263,55 +358,4 @@
         ShowAddOrUpdateEmployee = false;
         await NotifyParentFormCloseClicked.InvokeAsync();
     }
-
-    //country city town
-    [Parameter] public EventCallback<int> HandleCountrySelectedEvent { get; set; }
-    public void OnCountryValueChange(ChangeEventArgs<string,Country> args)
-    {
-        HandleCountrySelectedEvent.InvokeAsync(int.Parse(args.Value));    
-    }
-
-    [Parameter] public EventCallback<int> HandleCitySelectedEvent { get; set; }
-    public void OnCityValueChange(ChangeEventArgs<string, City> args)
-    {
-        HandleCitySelectedEvent.InvokeAsync(int.Parse(args.Value));
-    }
-
-    public void OnTownValueChange(ChangeEventArgs<string, Town> args)
-    {
-        EmployeeGroup2.TownId = int.Parse(args.Value);
-    }
-
-    //G Department Department branch
-    [Parameter] public EventCallback<int> HandleGeneralDepartmentSelectedEvent { get; set; }
-    public void OnGeneralDepartmentValueChange(ChangeEventArgs<string, GeneralDepartment> args)
-    {
-        HandleGeneralDepartmentSelectedEvent.InvokeAsync(int.Parse(args.Value));
-    }
-
-    [Parameter] public EventCallback<int> HandleDepartmentSelectedEvent { get; set; }
-    public void OnDepartmentValueChange(ChangeEventArgs<string, Department> args)
-    {
-        HandleDepartmentSelectedEvent.InvokeAsync(int.Parse(args.Value));
-    }
-
-    public void OnBranchValueChange(ChangeEventArgs<string, Branch> args)
-    {
-        EmployeeGroup2.BranchId = int.Parse(args.Value);
-    }
-
-    //Forms Handling
-    void Form1()
-    {
-        
-    }
-    void Form2()
-    {
-
-    }
-
-
-    public void Dispose() => allstate.Action -= StateHasChanged;
-
-
 }
