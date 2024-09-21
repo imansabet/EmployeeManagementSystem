@@ -9,9 +9,7 @@ public class Employee : BaseEntity
 
     public string? FileNumber { get; set; } = string.Empty;
 
-    [Required]
-
-    public string? FullName { get; set; } = string.Empty;
+   
     [Required]
 
     public string? JobName { get; set; } = string.Empty;

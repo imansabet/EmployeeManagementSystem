@@ -188,7 +188,12 @@
                                                 </SfDropDownList>
                                                 <ValidationMessage For="()=>EmployeeGroup2.TownId" class="text-danger" />
                                             </div>
-                                            
+                                            <div class="form-group mt-3">
+                                               <label class="form-label">
+                                                   Other
+                                               </label>
+                                               <textarea @bind="EmployeeGroup2.Other" placeholder="Optional" class="form-control"></textarea>
+                                            </div>
                                             <div class="form-group mt-4 mb-5">
                                                 <button class="btn btn-primary float-end" type="submit">
                                                     <i class="bi bi-save"></i>

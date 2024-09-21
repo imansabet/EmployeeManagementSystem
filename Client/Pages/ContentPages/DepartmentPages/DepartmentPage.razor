@@ -147,7 +147,10 @@
         {
             Department = new();
             await GetDepartments();
+            await GetGeneralDepartments();
+
             departmentDialog?.ChangeTitle("Add");
+            StateHasChanged();
         }
     }
 
