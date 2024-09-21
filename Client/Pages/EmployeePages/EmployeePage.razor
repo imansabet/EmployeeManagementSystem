@@ -230,6 +230,22 @@
     }
 
 
+    //View Clicked
+    public bool ShowDetailsPage { get; set; } = false;
+    private void ViewClicked()
+    {
+        Employee = SelectedEmployee;
+        contextMenu.CloseContextMenu();
+        ShowDetailsPage = true;
+        ShowMainPage = false;
+        SelectedEmployee = new();
+    }
+
+
+
+
+
+
 
     private async Task<bool> DisplayMessage(bool flag, string message)
     {
