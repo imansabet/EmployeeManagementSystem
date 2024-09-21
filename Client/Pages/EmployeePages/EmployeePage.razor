@@ -67,6 +67,13 @@
             HandleDepartmentSelectedEvent="HandleDepartmentSelectedEvent"
             HandleSaveEmployeeClickedEvent="HandleSaveEmployeeClickedEvent" >
 </AddorUpdateEmployeePage>
+
+<EmployeeDetailPage
+    EmployeeDetails="Employee"
+    ShowDetailsPage="ShowDetailsPage"
+    HandleDetailsPageCloseBtnClicked="HandleDetailsPageCloseBtnClicked">
+</EmployeeDetailPage>
+
 <ContextMenu 
     @ref ="contextMenu"
             HandleDeleteClicked="DeleteClicked"
@@ -240,8 +247,12 @@
         ShowMainPage = false;
         SelectedEmployee = new();
     }
-
-
+    //details page close
+    void HandleDetailsPageCloseBtnClicked()
+    {
+        ShowDetailsPage = false;
+        ShowMainPage = true;
+    }
 
 
 
